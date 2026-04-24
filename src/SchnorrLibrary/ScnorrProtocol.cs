@@ -8,9 +8,9 @@ namespace SchnorrLibrary
     {
         public static (BigInteger r, BigInteger t) Commit(SchnorrParameters param)
         {
-            var rng = new Random();
+            var rng = Random.Shared;
             BigInteger r = rng.Next(1, (int)param.Q);
-            BigInteger t = Arithmetic.ModMath.Pow(param.G, r, param.P);
+            BigInteger t = ModMath.Pow(param.G, r, param.P);
             return (r, t);
         }
 
@@ -28,7 +28,7 @@ namespace SchnorrLibrary
             var left = ModMath.Pow(param.G, s, param.P);
 
             var right = ModMath.Multiply(t, ModMath.Pow(y, c, param.P), param.P);
-
+            
             return left == right;
         }
     }
