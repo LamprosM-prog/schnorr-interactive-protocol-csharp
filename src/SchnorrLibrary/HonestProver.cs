@@ -5,15 +5,23 @@ using System.Text;
 
 namespace SchnorrLibrary
 {
-    public  class HonestProver : IProver
+    public class HonestProver : IProver
     {
+        private readonly BigInteger _x;
+        private BigInteger _r;
+
+        public HonestProver(BigInteger x) => _x = x;
+
         public BigInteger GenerateCommitment(SchnorrParameters param)
         {
-            return SchnorrProtocol.Commit(param);
+            var (r, t) = SchnorrProtocol.Commit(param);
+            _r = r; 
+            return t;
         }
-        public BigInteger Respond(BigInteger challenge, BigInteger r, BigInteger c, BigInteger x, BigInteger q)
+
+        public BigInteger Respond(BigInteger c, SchnorrParameters param)
         {
-            return Respond( challenge, r, c,  x,  q);
+            return SchnorrProtocol.Respond(_r, c, _x, param.Q);
         }
     }
 }

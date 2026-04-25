@@ -7,6 +7,6 @@ namespace SchnorrLibrary
     {
         BigInteger GenerateChallenge(SchnorrParameters param);
 
-        bool Verify(SchnorrParameters param,BigInteger t, BigInteger c, BigInteger s, BigInteger y);
+        bool Verify(SchnorrParameters param,BigInteger y, BigInteger t, BigInteger c, BigInteger s);
     }
 }
