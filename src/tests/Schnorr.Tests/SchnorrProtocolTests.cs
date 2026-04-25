@@ -56,7 +56,7 @@ public class SchnorrProtocolTests
         Assert.True(xs.Count > 1, "RNG appears to be returning the same value every time.");
     }
 
-    // ── SchnorrProtocol.Commit ────────────────────────────────────────────────
+    //SchnorrProtocol.Commit 
 
     [Fact]
     public void Commit_NonceTIsGPowRModP()
@@ -85,7 +85,7 @@ public class SchnorrProtocolTests
         Assert.True(t < Params.P);
     }
 
-    // ── SchnorrProtocol.Respond ───────────────────────────────────────────────
+    //SchnorrProtocol.Respond 
 
     [Theory]
     [InlineData(5, 2, 3)]   // s = (5 + 2*3) % 11 = 0
