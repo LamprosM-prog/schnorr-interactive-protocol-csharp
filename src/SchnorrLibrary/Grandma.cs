@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SchnorrLibrary
 {
-    public class Grandma : IVerifier
+    public class Grandma : IVerifier //grandma
     {
         public  BigInteger GenerateChallenge(SchnorrParameters param)
         {

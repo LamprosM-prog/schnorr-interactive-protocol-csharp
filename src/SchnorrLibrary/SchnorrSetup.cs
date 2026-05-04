@@ -10,7 +10,7 @@ namespace SchnorrLibrary
     {
         public static (BigInteger x, BigInteger y) GenerateKeys(SchnorrParameters param)
         {
-            var rng =  Random.Shared;
+            var rng = new Random();
             BigInteger x = rng.Next(1, (int)param.Q);
             BigInteger y = ModMath.Pow(param.G, x, param.P);
 

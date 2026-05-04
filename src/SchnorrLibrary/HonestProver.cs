@@ -5,11 +5,11 @@ using System.Text;
 
 namespace SchnorrLibrary
 {
-    public class HonestProver : IProver
+    public class HonestProver : IProver //Grandchild
     {
         private readonly BigInteger _x;
-        private BigInteger _r;
-
+        private BigInteger _r; 
+ 
         public HonestProver(BigInteger x) => _x = x;
 
         public BigInteger GenerateCommitment(SchnorrParameters param)

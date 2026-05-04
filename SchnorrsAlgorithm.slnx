@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="Console/ConsoleSchnorr.csproj" Id="24e4ce48-0373-463f-ba38-fcadcbf190c8" />
   <Project Path="src/Arithmetic/Arithmetic.csproj" />
   <Project Path="src/SchnorrLibrary/SchnorrLibrary.csproj" Id="4f9d3eff-d10d-4e46-9533-8447b13e9803" />
   <Project Path="src/tests/Schnorr.Tests/Schnorr.Tests.csproj" Id="9ffe1138-79de-445c-abca-787db5825c4d" />
