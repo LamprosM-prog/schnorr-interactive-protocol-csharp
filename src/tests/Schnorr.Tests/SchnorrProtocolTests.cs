@@ -61,7 +61,7 @@ public class SchnorrProtocolTests
     [Fact]
     public void Commit_NonceTIsGPowRModP()
     {
-        var (r, t) = SchnorrProtocol.Commit(Params);
+        var (r, t) = SchnorrProtocol.Commit(Params,null);
 
         var expected = Arithmetic.ModMath.Pow(Params.G, r, Params.P);
         Assert.Equal(expected, t);
@@ -70,7 +70,7 @@ public class SchnorrProtocolTests
     [Fact]
     public void Commit_RandomnessRInValidRange()
     {
-        var (r, _) = SchnorrProtocol.Commit(Params);
+        var (r, _) = SchnorrProtocol.Commit(Params, null);
 
         Assert.True(r >= BigInteger.One);
         Assert.True(r < Params.Q);
@@ -79,7 +79,7 @@ public class SchnorrProtocolTests
     [Fact]
     public void Commit_NonceTInValidRange()
     {
-        var (_, t) = SchnorrProtocol.Commit(Params);
+        var (_, t) = SchnorrProtocol.Commit(Params, null);
 
         Assert.True(t >= BigInteger.One);
         Assert.True(t < Params.P);
@@ -200,7 +200,7 @@ public class SchnorrProtocolTests
         for (int i = 0; i < 30; i++)
         {
             var (x, y) = SchnorrSetup.GenerateKeys(Params);
-            var (r, t) = SchnorrProtocol.Commit(Params);
+            var (r, t) = SchnorrProtocol.Commit(Params,null);
             var s = SchnorrProtocol.Respond(r, c, x, Params.Q);
 
             Assert.True(

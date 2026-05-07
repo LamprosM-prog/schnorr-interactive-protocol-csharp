@@ -1,16 +1,19 @@
-﻿using System;
+﻿using Arithmetic;
+using System;
+using System.Diagnostics;
 using System.Numerics;
-using Arithmetic;
 
 namespace SchnorrLibrary
 {
     public static class SchnorrProtocol
     {
-        public static (BigInteger r, BigInteger t) Commit(SchnorrParameters param)
+      
+        public static (BigInteger r, BigInteger t) Commit(SchnorrParameters param, SchnorrTrace trace)
         {
             var rng = Random.Shared;
             BigInteger r = rng.Next(1, (int)param.Q);
             BigInteger t = ModMath.Pow(param.G, r, param.P); // The commit that the provers will send 
+            trace?.Steps.Add($"t = g^r mod p\n{param.G}^{r} mod {param.P} = {t}");
             return (r, t);
         }
 

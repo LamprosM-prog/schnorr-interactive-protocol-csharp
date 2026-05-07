@@ -3,13 +3,14 @@ using System.Diagnostics;
 using System.Numerics;
 using SchnorrLibrary;
 
-class Program
+public class Program
 {
-    static void Main()
+    public static void Main()
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
         
-        Console.WriteLine("=== Schnorr Protocol Demo ===\n");
+        var trace = new SchnorrTrace();
+        trace.ProverType = "HonestProver";
 
         //Parameters
         var param = new SchnorrParameters
@@ -18,33 +19,32 @@ class Program
             Q = 11,
             G = 3
         };   //Note these parameters arent cryptographically secure. Nor is the randomness used.
-             //These are used for demostration purposes only.
-
+             //These are used for demostration purposes.
+        Console.WriteLine($"Grandma: I choose, a random prime P = 23\n" +
+            $"Grandma: And a Q = P-1 = 11\n" +
+            $"Grandma: And our Generator G = 3");
         //Key generation 
         var (x, y) = SchnorrSetup.GenerateKeys(param);
-
-        Console.WriteLine($"Private key x: {x}");
-        Console.WriteLine($"Public key  y: {y}\n");
-
-        IProver prover = new HonestProver(x);
+        trace.Y = y;
+        IProver prover = new HonestProver(x, trace);
         IVerifier verifier = new Grandma();
         // Commitment
         BigInteger t = prover.GenerateCommitment(param);
-        Console.Write("Grandchild:");
-        Console.WriteLine($"I choose random number  r={t}");
+        trace.T = t;
 
         // Challenge
         BigInteger c = verifier.GenerateChallenge(param);
-        Console.WriteLine($"Challenge c: {c}");
+        trace.C = c;
 
         // Response
         BigInteger s = prover.Respond(c, param);
-        Console.WriteLine($"Response s: {s}\n");
-
+        trace.S = s;
         // Verification
         bool result = verifier.Verify(param, y, t, c, s);
+        trace.Result = result;
+        
+        ConsoleSchnorr.SchnorrTracePrinter.Print(trace);    // I have no idea why the prefix ConsoleSchnorr is needed
 
-        Console.WriteLine($"Verification result: {result}");
         stopwatch.Stop();
         TimeSpan timeSpan = stopwatch.Elapsed;
         string elapsedTime = String.Format("{0000}", timeSpan.Milliseconds);
