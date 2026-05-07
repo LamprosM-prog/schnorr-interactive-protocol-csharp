@@ -23,5 +23,6 @@ namespace SchnorrLibrary
         {
             return SchnorrProtocol.Respond(_r, c, _x, param.Q);
         }
+    
     }
 }

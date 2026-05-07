@@ -2,7 +2,7 @@
 using SchnorrLibrary;
 using Xunit;
 
-namespace SchnorrLibrary.Tests;
+namespace Schnorr.Tests;
 
 public class SchnorrProtocolTests
 {
@@ -175,7 +175,6 @@ public class SchnorrProtocolTests
         Assert.False(SchnorrProtocol.Verify(Params, wrongY, t, c, s));
     }
 
-    // ── Full round-trip ───────────────────────────────────────────────────────
 
     [Theory]
     [InlineData(1, 1, 1)]
@@ -210,7 +209,6 @@ public class SchnorrProtocolTests
         }
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
 
     /// <summary>
     /// Deterministically derive a key pair for a fixed private key,
