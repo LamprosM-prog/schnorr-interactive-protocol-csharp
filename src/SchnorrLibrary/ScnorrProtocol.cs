@@ -25,12 +25,7 @@ namespace SchnorrLibrary
 
         }
 
-        public static bool Verify( SchnorrParameters param,
-            BigInteger y,
-            BigInteger t,
-            BigInteger c,
-            BigInteger s,
-            SchnorrTrace trace)  // Verify: G^s ≡ t * y^c (mod P)
+        public static bool Verify( SchnorrParameters param, BigInteger y, BigInteger t, BigInteger c, BigInteger s, SchnorrTrace trace)  // Verify: G^s ≡ t * y^c (mod P)
         {
             trace?.Add("Grandma", $"Let me check your response!\n");
             trace?.Add("Grandma", $"If you are indeed my grandson who knows the secret key x" +

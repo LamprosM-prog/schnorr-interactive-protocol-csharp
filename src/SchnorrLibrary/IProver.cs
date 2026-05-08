@@ -7,7 +7,13 @@ namespace SchnorrLibrary
 {
     public interface IProver
     {
-        BigInteger GenerateCommitment(SchnorrParameters param);
-        BigInteger Respond(BigInteger c, SchnorrParameters param);
+        BigInteger GenerateCommitment(
+            SchnorrParameters param,
+            SchnorrTrace trace);
+
+        BigInteger Respond(
+            BigInteger c,
+            SchnorrParameters param,
+            SchnorrTrace trace);
     }
 }

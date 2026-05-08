@@ -10,26 +10,21 @@ namespace SchnorrLibrary
     
     public class Attacker1 : IProver
     {
-        private readonly SchnorrTrace _trace;
-
-        public Attacker1(SchnorrTrace trace) {
-            _trace = trace;
-        }
-
-        public BigInteger GenerateCommitment(SchnorrParameters param)
+ 
+        public BigInteger GenerateCommitment(SchnorrParameters param, SchnorrTrace trace)
         {
             var rng = Random.Shared;
             var t = rng.Next(1, (int)param.P);
-            _trace.Add("Attacker", $"Uhhh t = {t}");
+            trace.Add("Attacker", $"Uhhh t = {t}");
             return t;
            
         
         }
-        public BigInteger Respond(BigInteger c,SchnorrParameters param)
+        public BigInteger Respond(BigInteger c,SchnorrParameters param, SchnorrTrace trace)
         {
             var rng = Random.Shared;
             var s = rng.Next(1, 50);
-            _trace.Add("Attacker", $"Hmmm, s = {s}");
+            trace.Add("Attacker", $"Hmmm, s = {s}");
             return s;
         }
     

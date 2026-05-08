@@ -8,31 +8,29 @@ namespace SchnorrLibrary
     public class HonestProver : IProver //grandchild
     {
         private readonly BigInteger _x;
-        private readonly SchnorrTrace _trace;
         private BigInteger _r;
 
-        public HonestProver(BigInteger x, SchnorrTrace trace)
+        public HonestProver(BigInteger x)
         {
             _x = x;
-            _trace = trace;
         }
 
-        public BigInteger GenerateCommitment(SchnorrParameters param)
+        public BigInteger GenerateCommitment(SchnorrParameters param, SchnorrTrace trace)
         {
-            var (r, t) = SchnorrProtocol.Commit(param, _trace);
+            var (r, t) = SchnorrProtocol.Commit(param, trace);
 
             _r = r;
 
-            _trace.Add("Prover", $"Commitment t = {t}");
+            trace.Add("Prover", $"Commitment t = {t}");
 
             return t;
         }
 
-        public BigInteger Respond(BigInteger c, SchnorrParameters param)
+        public BigInteger Respond(BigInteger c, SchnorrParameters param, SchnorrTrace trace)
         {
-            var s = SchnorrProtocol.Respond(_r, c, _x, param.Q, _trace);
+            var s = SchnorrProtocol.Respond(_r, c, _x, param.Q, trace);
 
-            _trace.Add("Prover", $"Response s = {s}");
+            trace.Add("Prover", $"Response s = {s}");
 
             return s;
         }
