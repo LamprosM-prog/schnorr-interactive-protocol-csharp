@@ -9,24 +9,12 @@ namespace ConsoleSchnorr
     {
         public static void Print(SchnorrTrace trace)
         {
-         
-            Console.WriteLine($"Prover Type : {trace.ProverType}");
+            Console.WriteLine("\n=== Schnorr Conversation ===\n");
+
             foreach (var step in trace.Steps)
             {
-                Console.WriteLine(step.ToString());
+                Console.WriteLine($"{step.Speaker}: {step.Message}");
             }
-
-            Console.WriteLine($"Commitment t = {trace.T}");
-            Console.WriteLine($"Challenge c = {trace.C}");
-            Console.WriteLine($"Response s = {trace.S}");
-
-            Console.WriteLine($"Public key y = {trace.Y}");
-            Console.WriteLine($"Verification result = {trace.Result}");
-
-
-
-
         }
-    
     }
 }

@@ -6,13 +6,13 @@ namespace Schnorr.Tests;
 
 public class SchnorrProtocolTests
 {
-    // P = 23 (prime), Q = 11 (prime factor of P-1 = 22), G = 2 (generator of order 11 mod 23)
-    // Verify: 2^11 mod 23 = 2048 mod 23 = 1 ✓
+    // P = 23 (prime), Q = 11 (prime factor of P-1 = 22), G = 3 (generator of order 11 mod 23)
+    // Verify: 2^11 mod 23 = 2048 mod 23 = 1 
     private static readonly SchnorrParameters Params = new()
     {
         P = new BigInteger(23),
         Q = new BigInteger(11),
-        G = new BigInteger(2)
+        G = new BigInteger(3)
     };
 
     // SchnorrSetup.GenerateKeys
@@ -96,7 +96,7 @@ public class SchnorrProtocolTests
     {
         BigInteger rB = r, cB = c, xB = x;
 
-        var s = SchnorrProtocol.Respond(rB, cB, xB, Params.Q);
+        var s = SchnorrProtocol.Respond(rB, cB, xB, Params.Q,null);
         var expected = (rB + cB * xB) % Params.Q;
 
         Assert.Equal(expected, s);
@@ -107,12 +107,12 @@ public class SchnorrProtocolTests
     {
         // Use values that keep the result positive with these small params
         BigInteger r = 1, c = 1, x = 1;
-        var s = SchnorrProtocol.Respond(r, c, x, Params.Q);
+        var s = SchnorrProtocol.Respond(r, c, x, Params.Q, null);
 
         Assert.True(s >= BigInteger.Zero);
     }
 
-    // ── SchnorrProtocol.Verify ────────────────────────────────────────────────
+    //SchnorrProtocol.Verify
 
     [Fact]
     public void Verify_ReturnsTrueForValidProof()
@@ -121,9 +121,9 @@ public class SchnorrProtocolTests
         BigInteger r = 5, c = 2;
 
         var t = CommitT(r);
-        var s = SchnorrProtocol.Respond(r, c, x, Params.Q);
+        var s = SchnorrProtocol.Respond(r, c, x, Params.Q, null);
 
-        Assert.True(SchnorrProtocol.Verify(Params, y, t, c, s));
+        Assert.True(SchnorrProtocol.Verify(Params, y, t, c, s, null));
     }
 
     [Fact]
@@ -133,9 +133,9 @@ public class SchnorrProtocolTests
         BigInteger r = 5, c = 2;
 
         var t = CommitT(r);
-        var s = SchnorrProtocol.Respond(r, c, x, Params.Q);
+        var s = SchnorrProtocol.Respond(r, c, x, Params.Q, null);
 
-        Assert.False(SchnorrProtocol.Verify(Params, y, t, c + 1, s));
+        Assert.False(SchnorrProtocol.Verify(Params, y, t, c + 1, s, null));
     }
 
     [Fact]
@@ -145,9 +145,9 @@ public class SchnorrProtocolTests
         BigInteger r = 5, c = 2;
 
         var t = CommitT(r);
-        var s = SchnorrProtocol.Respond(r, c, x, Params.Q);
+        var s = SchnorrProtocol.Respond(r, c, x, Params.Q, null);
 
-        Assert.False(SchnorrProtocol.Verify(Params, y, t, c, s + 1));
+        Assert.False(SchnorrProtocol.Verify(Params, y, t, c, s + 1, null));
     }
 
     [Fact]
@@ -157,9 +157,9 @@ public class SchnorrProtocolTests
         BigInteger r = 5, c = 2;
         BigInteger fakeT = 4;
 
-        var s = SchnorrProtocol.Respond(r, c, x, Params.Q);
+        var s = SchnorrProtocol.Respond(r, c, x, Params.Q, null);
 
-        Assert.False(SchnorrProtocol.Verify(Params, y, fakeT, c, s));
+        Assert.False(SchnorrProtocol.Verify(Params, y, fakeT, c, s, null));
     }
 
     [Fact]
@@ -170,9 +170,9 @@ public class SchnorrProtocolTests
         BigInteger r = 5, c = 2;
 
         var t = CommitT(r);
-        var s = SchnorrProtocol.Respond(r, c, x, Params.Q);
+        var s = SchnorrProtocol.Respond(r, c, x, Params.Q, null);
 
-        Assert.False(SchnorrProtocol.Verify(Params, wrongY, t, c, s));
+        Assert.False(SchnorrProtocol.Verify(Params, wrongY, t, c, s, null));
     }
 
 
@@ -187,9 +187,9 @@ public class SchnorrProtocolTests
         var (xB, y) = KeysForX(x);
 
         var t = CommitT(rB);
-        var s = SchnorrProtocol.Respond(rB, cB, xB, Params.Q);
+        var s = SchnorrProtocol.Respond(rB, cB, xB, Params.Q, null);
 
-        Assert.True(SchnorrProtocol.Verify(Params, y, t, cB, s));
+        Assert.True(SchnorrProtocol.Verify(Params, y, t, cB, s, null));
     }
 
     [Fact]
@@ -201,10 +201,10 @@ public class SchnorrProtocolTests
         {
             var (x, y) = SchnorrSetup.GenerateKeys(Params);
             var (r, t) = SchnorrProtocol.Commit(Params,null);
-            var s = SchnorrProtocol.Respond(r, c, x, Params.Q);
+            var s = SchnorrProtocol.Respond(r, c, x, Params.Q, null);
 
             Assert.True(
-                SchnorrProtocol.Verify(Params, y, t, c, s),
+                SchnorrProtocol.Verify(Params, y, t, c, s, null),
                 $"Verification failed on iteration {i} with x={x}, r={r}");
         }
     }

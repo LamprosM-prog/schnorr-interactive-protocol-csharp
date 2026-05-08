@@ -27,7 +27,7 @@ public class Program
         var (x, y) = SchnorrSetup.GenerateKeys(param);
         trace.Y = y;
         IProver prover = new HonestProver(x, trace);
-        IVerifier verifier = new Grandma();
+        IVerifier verifier = new Grandma(trace);
         // Commitment
         BigInteger t = prover.GenerateCommitment(param);
         trace.T = t;

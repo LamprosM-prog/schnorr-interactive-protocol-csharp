@@ -15,7 +15,23 @@ namespace SchnorrLibrary
         public bool Result { get; set; }
 
         public string ProverType { get; set; } = "Honest";
-        public List<string> Steps { get; set; } = new();
-
+        public List<TraceStep> Steps { get; set; } = new();
+        public void Add(string speaker, string message)
+        {
+            Steps.Add(new TraceStep
+            {
+                Speaker = speaker,
+                Message = message
+            });
+        }
     }
+    public class TraceStep
+    {
+        public string Speaker { get; set; }
+        public string Message { get; set; }
+    }
+
+
+
+
 }
