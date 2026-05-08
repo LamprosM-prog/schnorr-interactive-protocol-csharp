@@ -9,8 +9,6 @@ namespace ConsoleSchnorr
     {
         public static void Print(SchnorrTrace trace)
         {
-            Console.WriteLine("\n=== Schnorr Conversation ===\n");
-
             foreach (var step in trace.Steps)
             {
                 Console.WriteLine($"{step.Speaker}: {step.Message}");

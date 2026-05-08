@@ -22,12 +22,34 @@ public class Program
              //These are used for demostration purposes.
         Console.WriteLine($"Grandma: I choose, a random prime P = 23\n" +
             $"Grandma: And a Q = P-1 = 11\n" +
-            $"Grandma: And our Generator G = 3");
+            $"Grandma: And our Generator G = 3\n" +
+            $"Grandma: I am ready to accept commitments!");
         //Key generation 
         var (x, y) = SchnorrSetup.GenerateKeys(param);
         trace.Y = y;
+        IProver prover2 = new Attacker1(trace);
         IProver prover = new HonestProver(x, trace);
         IVerifier verifier = new Grandma(trace);
+        //attacker1 
+       
+        //Commitment
+        BigInteger t1 = prover2.GenerateCommitment(param);
+        trace.T = t1;
+
+        //Challenge 
+        BigInteger c1 = verifier.GenerateChallenge(param);
+        trace.C = c1;
+
+        //Response
+        BigInteger s1 = prover2.Respond(c1 ,param);
+        trace.S = s1;
+
+        //Verify
+        bool result1 = verifier.Verify(param, y, t1, c1, s1);
+        trace.Result = result1;
+        
+        //-----------------------------------------------------------------------------
+        
         // Commitment
         BigInteger t = prover.GenerateCommitment(param);
         trace.T = t;

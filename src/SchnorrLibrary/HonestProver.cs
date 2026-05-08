@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SchnorrLibrary
 {
-    public class HonestProver : IProver
+    public class HonestProver : IProver //grandchild
     {
         private readonly BigInteger _x;
         private readonly SchnorrTrace _trace;
