@@ -100,4 +100,4 @@ Requires .NET 10 or later.
 ## Further Reading
 
 - Schnorr, C.P. (1991). *Efficient Signature Generation by Smart Cards.* Journal of Cryptology.
-- [Schnorr Protocol — Wikipedia](https://en.wikipedia.org/wiki/Schnorr_protocol)
+- [Schnorr Protocol — Wikipedia]((https://en.wikipedia.org/wiki/Schnorr_signature))
