@@ -15,7 +15,7 @@ namespace SchnorrLibrary
         {
             var rng = Random.Shared;
             var t = rng.Next(1, (int)param.P);
-            trace.Add("Attacker", $"Uhhh t = {t}");
+            trace.Add("Prover", $"Uhhh t = {t}");
             return t;
            
         
@@ -23,8 +23,8 @@ namespace SchnorrLibrary
         public BigInteger Respond(BigInteger c,SchnorrParameters param, SchnorrTrace trace)
         {
             var rng = Random.Shared;
-            var s = rng.Next(1, 50);
-            trace.Add("Attacker", $"Hmmm, s = {s}");
+            var s = rng.Next(1, 50); // arbitrary guess, no knowledge of protocol
+            trace.Add("Prover", $"Hmmm, s = {s}");
             return s;
         }
     

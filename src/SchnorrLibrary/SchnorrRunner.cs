@@ -27,6 +27,7 @@ namespace SchnorrLibrary
     {
         public string DisplayName { get; set; }      // "Prover 1"
         public string Identity { get; set; }         // "Neighbour / Honest / etc"
+        public string Strategy { get; set; }         // "Random numbers/ Fake X"
         public IProver Prover { get; set; }
         public SchnorrTrace Trace { get; set; } = new();
 

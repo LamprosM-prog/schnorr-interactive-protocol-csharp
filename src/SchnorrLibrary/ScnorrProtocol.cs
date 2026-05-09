@@ -7,14 +7,17 @@ namespace SchnorrLibrary
 {
     public static class SchnorrProtocol
     {
-      
+      //Where a cast (int) exists it creates a possibility for a negative number to be parsed.
+      // This however doesnt happen due to the nature of the parameters
+
+
         public static (BigInteger r, BigInteger t) Commit(SchnorrParameters param, SchnorrTrace trace)
         {
             var rng = Random.Shared;
             BigInteger r = rng.Next(1, (int)param.Q);
             BigInteger t = ModMath.Pow(param.G, r, param.P); // The commit that the provers will send 
             trace?.Add("Prover", $"t = g^r mod p\n{param.G}^{r} mod {param.P}\n = {t}");
-            return (r, t);
+            return (r, t); //r is to be cached internally
         }
 
         public static BigInteger Respond(BigInteger r, BigInteger c, BigInteger x, BigInteger q, SchnorrTrace trace)
@@ -33,13 +36,13 @@ namespace SchnorrLibrary
             var left = ModMath.Pow(param.G, s, param.P); //Left is what the prover sent. 
             trace?.Add("Grandma", $"\nLeft side first!\nG^s mod P\n" +
                 $"{param.G}^{s} mod {param.P}=\n" +
-                $"{(int)left}");
+                $"= {left}");
 
             var right = ModMath.Multiply(t, ModMath.Pow(y, c, param.P), param.P); //This is what the verifier already knows.
             trace?.Add("Grandma", $"And now right side\n" +
                 $"(t * y ^ c ) mod P\n" +
-                $"({t}*{y}^{c}) mod {param.P}\n" +
-                $"={(int)right}");
+                $"({t}*{y}^{c}) mod {param.P}=\n" +
+                $"= {right}");
 
             return left == right; // Schnorr!  if the the equality is true the prover is honest!
         }

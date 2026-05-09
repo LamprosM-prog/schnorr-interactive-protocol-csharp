@@ -12,7 +12,7 @@ namespace SchnorrLibrary
         {
             var c = Random.Shared.Next(1, (int)param.Q);
 
-            trace.Add("Grandma", $"I choose randomly from a number between and including 1 to {param.Q}" +
+            trace.Add("Grandma", $"I choose a number uniformly at random from [1, Q]!" +
                 $"\nThe Challenge is c = {c}" +
                 $"\nI await responses!");
 
