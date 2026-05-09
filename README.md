@@ -88,7 +88,7 @@ ConsoleSchnorr/
 
 ```bash
 git clone https://github.com/LamprosM-prog/schnorr-interactive-protocol-csharp
-cd schnorrs-algorithm
+cd schnorr-interactive-protocol-csharp
 dotnet run --project ConsoleSchnorr
 ```
 
