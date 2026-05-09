@@ -16,7 +16,8 @@ Schnorr's protocol is a three-move interaction:
 4. **Verify** — The verifier checks whether `G^s ≡ t * y^c (mod P)`. If true, the prover knows `x`.
 
 The key insight: a prover who does not know `x` cannot compute a valid `s` for an arbitrary challenge `c`. They would have to guess `c` before seeing it, which succeeds with probability `1/Q`.
-The verifier never learns the secret x — only whether the prover’s behavior is consistent with knowing it. Making the protocol a zero-knowledge-proof.
+
+The verifier never learns the secret x — only whether the prover's behavior is consistent with knowing it. Making the protocol a zero-knowledge-proof.
 ---
 
 ## Notation
